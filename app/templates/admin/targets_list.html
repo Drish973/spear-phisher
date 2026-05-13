@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Targets</h2>
+
+<a class="btn btn-sm btn-primary mb-3" href="{{ url_for('admin.targets_new') }}">New Target</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Bank</th>
+      <th>UPI ID</th>
+      <th>Department</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for t in targets %}
+      <tr>
+        <td>{{ t.name }}</td>
+        <td>{{ t.email }}</td>
+        <td>{{ t.bank_name }}</td>
+        <td>{{ t.upi_id }}</td>
+        <td>{{ t.department }}</td>
+        <td>
+          <a class="btn btn-sm btn-secondary" href="{{ url_for('admin.targets_edit', target_id=t.id) }}">
+            Edit
+          </a>
+        </td>
+      </tr>
+    {% else %}
+      <tr>
+        <td colspan="6">No targets yet.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

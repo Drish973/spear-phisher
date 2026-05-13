@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ 'Edit Template' if template else 'New Template' }}</h2>
+
+<form method="post">
+  <div class="mb-3">
+    <label>Name</label>
+    <input class="form-control" type="text" name="name" value="{{ template.name if template else '' }}">
+  </div>
+  <div class="mb-3">
+    <label>Category</label>
+    <select class="form-control" name="category">
+      {% set current = template.category if template else '' %}
+      <option value="KYC" {{ 'selected' if current == 'KYC' else '' }}>KYC</option>
+      <option value="QR" {{ 'selected' if current == 'QR' else '' }}>QR</option>
+      <option value="SUPPORT" {{ 'selected' if current == 'SUPPORT' else '' }}>Support</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label>Subject</label>
+    <input class="form-control" type="text" name="subject" value="{{ template.subject if template else '' }}">
+  </div>
+  <div class="mb-3">
+    <label>Body (HTML)</label>
+    <textarea class="form-control" name="body_html" rows="10">{{ template.body_html if template else '' }}</textarea>
+    <small class="form-text text-muted">
+      You can use placeholders: {name}, {bank_name}, {upi_id}, {click_url}, {open_url}
+    </small>
+  </div>
+  <button class="btn btn-primary" type="submit">Save</button>
+  <a class="btn btn-secondary" href="{{ url_for('admin.templates_list') }}">Cancel</a>
+</form>
+{% endblock %}

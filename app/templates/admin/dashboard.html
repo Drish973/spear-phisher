@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Dashboard</h2>
+<p>Welcome, {{ current_user.email }}</p>
+
+<a class="btn btn-sm btn-secondary" href="{{ url_for('admin.targets_list') }}">Targets</a>
+<a class="btn btn-sm btn-secondary" href="{{ url_for('admin.templates_list') }}">Templates</a>
+<a class="btn btn-sm btn-secondary" href="{{ url_for('admin.campaigns_list') }}">Campaigns</a>
+
+<hr>
+<h4>Recent Campaigns</h4>
+<ul>
+  {% for c in campaigns %}
+    <li>{{ c.name }} - {{ c.status }} - {{ c.created_at }}</li>
+  {% else %}
+    <li>No campaigns yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

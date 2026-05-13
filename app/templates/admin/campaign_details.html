@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Campaign: {{ campaign.name }}</h2>
+<p>
+  Template: {{ campaign.template.name }} ({{ campaign.template.category }})<br>
+  Status: {{ campaign.status }}<br>
+  Created at: {{ campaign.created_at }}
+</p>
+
+<a class="btn btn-secondary mb-3" href="{{ url_for('admin.campaigns_list') }}">Back to Campaigns</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Target</th>
+      <th>Email</th>
+      <th>Sent at</th>
+      <th>Opened at</th>
+      <th>Clicked at</th>
+      <th>Submitted at</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for ct in campaign.campaign_targets %}
+      <tr>
+        <td>{{ ct.target.name }}</td>
+        <td>{{ ct.target.email }}</td>
+        <td>{{ ct.sent_at or '-' }}</td>
+        <td>{{ ct.opened_at or '-' }}</td>
+        <td>{{ ct.clicked_at or '-' }}</td>
+        <td>{{ ct.submitted_at or '-' }}</td>
+      </tr>
+    {% else %}
+      <tr>
+        <td colspan="6">No targets linked to this campaign.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

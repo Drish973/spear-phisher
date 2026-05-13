@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Campaigns</h2>
+
+<a class="btn btn-sm btn-primary mb-3" href="{{ url_for('admin.campaigns_new') }}">New Campaign</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Template</th>
+      <th>Status</th>
+      <th>Created at</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for c in campaigns %}
+      <tr>
+        <td>{{ c.name }}</td>
+        <td>{{ c.template.name }}</td>
+        <td>{{ c.status }}</td>
+        <td>{{ c.created_at }}</td>
+        <td>
+          {% if c.status == 'draft' %}
+          <form method="post" action="{{ url_for('admin.campaigns_start', campaign_id=c.id) }}" style="display:inline;">
+            <button class="btn btn-sm btn-success" type="submit">Start</button>
+          </form>
+          {% else %}
+          <span class="text-muted">Sent</span>
+          {% endif %}
+        </td>
+        <td>
+  {% if c.status == 'draft' %}
+  <form method="post" action="{{ url_for('admin.campaigns_start', campaign_id=c.id) }}" style="display:inline;">
+    <button class="btn btn-sm btn-success" type="submit">Start</button>
+  </form>
+  {% else %}
+  <span class="text-muted">Sent</span>
+  {% endif %}
+
+  <a class="btn btn-sm btn-outline-primary ms-1"
+     href="{{ url_for('admin.campaign_detail', campaign_id=c.id) }}">
+    Details
+  </a>
+</td>
+      </tr>
+    {% else %}
+      <tr>
+        <td colspan="5">No campaigns yet.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

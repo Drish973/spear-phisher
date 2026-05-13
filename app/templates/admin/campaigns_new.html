@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>New Campaign</h2>
+
+<form method="post">
+  <div class="mb-3">
+    <label>Campaign name</label>
+    <input class="form-control" type="text" name="name" required>
+  </div>
+
+  <div class="mb-3">
+    <label>Template</label>
+    <select class="form-control" name="template_id" required>
+      <option value="">-- Choose template --</option>
+      {% for t in templates %}
+        <option value="{{ t.id }}">{{ t.name }} ({{ t.category }})</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Targets</label>
+    <div class="form-text mb-2">Select one or more targets to include in this campaign.</div>
+    <div class="border rounded p-2" style="max-height: 300px; overflow-y: auto;">
+      {% for target in targets %}
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox"
+                 name="target_ids" value="{{ target.id }}"
+                 id="target_{{ target.id }}">
+          <label class="form-check-label" for="target_{{ target.id }}">
+            {{ target.name }} – {{ target.email }} ({{ target.bank_name }})
+          </label>
+        </div>
+      {% else %}
+        <p>No targets available. Create targets first.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <button class="btn btn-primary" type="submit">Create Campaign</button>
+  <a class="btn btn-secondary" href="{{ url_for('admin.campaigns_list') }}">Cancel</a>
+</form>
+{% endblock %}

